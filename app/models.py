@@ -9,6 +9,8 @@ class Post(m.Model):
 	author = m.ForeignKey(User)
 	category = m.ForeignKey('Category')
 	tag = m.ManyToManyField('Tag')
+	b_image = m.ImageField(upload_to='post_background', null=True, blank=True, verbose_name='Header Image')
+	sub_header = m.CharField(max_length=200, null=True, blank=True)
 	content = m.TextField(null=True, blank=True)
 	status = m.BooleanField(default=True)
 	created_at = m.DateTimeField(auto_now_add=True)

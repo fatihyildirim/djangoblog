@@ -3,13 +3,19 @@
 {% block content %}
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('{% static 'assets/img/post-bg.jpg' %}')">
+    <header class="intro-header" style="background-image: url('{% if post.b_image %} /media/{{ post.b_image }} {% else %} /static/assets/img/post-bg.jpg {% endif %}')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h1>{{ post.title }}</h1>
-                        <!-- <h2 class="subheading"></h2> -->
+                        <h2 class="subheading">
+                            {% if post.sub_header %}
+                                {{ post.sub_header }}
+                            {% else %}
+                            
+                            {% endif %}
+                        </h2>
                         <span class="meta">
                             Category: <a href="{% url 'category' post.category.slug %}">{{ post.category }}</a>
                         </span>

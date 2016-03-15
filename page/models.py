@@ -5,6 +5,7 @@ from django.db import models as m
 class Page(m.Model):
 	title = m.CharField(max_length = 100)
 	slug = m.SlugField(unique = True)
+	b_image = m.ImageField(upload_to='page_background', null=True, blank=True, verbose_name='Header Image')
 	description = m.TextField(blank = True, null = True)
 	sub_header = m.CharField(max_length = 100, blank = True, null = True)
 	content = m.TextField(blank = True, null = True)
