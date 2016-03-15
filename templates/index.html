@@ -1,37 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Blog</title>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('{% static 'assets/img/home-bg.jpg' %}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Clean Blog</h1>
+                        <hr class="small">
+                        <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            {% for post in posts %}
+                <div class="post-preview">
+                    <a href="{% url 'post' post.slug %}">
+                        <h2 class="post-title">
+                            {{ post.title }}
+                        </h2>
+                        <h3 class="post-subtitle">
+                            {{ post.content }}
+                        </h3>
+                    </a>
+                    <p class="post-meta">
+                        Category: <a href="{% url 'category' post.category.slug %}">{{ post.category }}</a>
 
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-</head>
-<body>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="container">
-					<h1>Blog</h1>
-					{% for post in posts %}
-						<h2><a href="{% url 'post' post.slug %}">{{ post.title }}</a></h2>
-						<p>{{ post.content }}</p>
-						<p><a href="{% url 'category' post.category.slug %}">{{ post.category }}</a></p>
-
-						{% for tag in post.tag.all %}
-							<p><a href="{% url 'tag' tag.slug %}">{{tag}}</a></p>
-						{% endfor %}
-					{% endfor %}
-				</div>
-			</div>
-		</div>
-	</div>
-	
-</body>
-</html>
+                        Tags: 
+                        {% for tag in post.tag.all %}
+                            <a href="{% url 'tag' tag.slug %}">{{tag}}</a>
+                            {% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    </p>
+                    <p class="post-meta">Posted by {{post.author}} on {{ post.created_at }}</p>
+                </div>
+                <hr>
+            {% endfor %}
+                <!-- Pager -->
+                <ul class="pager">
+                    <li class="next">
+                        <a href="#">Older Posts &rarr;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

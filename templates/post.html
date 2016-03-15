@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('{% static 'assets/img/post-bg.jpg' %}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>{{ post.title }}</h1>
+                        <!-- <h2 class="subheading"></h2> -->
+                        <span class="meta">
+                            Category: <a href="{% url 'category' post.category.slug %}">{{ post.category }}</a>
+                        </span>
+                        <span class="meta">
+                            Tags: 
+                            {% for tag in post.tag.all %}
+                                <a href="{% url 'tag' tag.slug %}">{{tag}}</a>
+                                {% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                        </span>
+                        <br />
+                        <span class="meta">Posted by {{post.author}} on {{ post.created_at }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    {{ post.content }}
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}
