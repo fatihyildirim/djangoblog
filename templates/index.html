@@ -21,7 +21,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            {% for post in posts %}
+            {% for post in post_per_page %}
                 <div class="post-preview">
                     <a href="{% url 'post' post.slug %}">
                         <h2 class="post-title">
@@ -46,9 +46,20 @@
             {% endfor %}
                 <!-- Pager -->
                 <ul class="pager">
-                    <li class="next">
-                        <a href="#">Older Posts &rarr;</a>
+
+                {% if post_per_page.has_previous %}
+                    <li class="previous">
+                        <a href="?page={{ post_per_page.previous_page_number }}">&larr; New Posts</a>
                     </li>
+                {% endif %}
+
+
+                {% if post_per_page.has_next %}
+                    <li class="next">
+                        <a href="?page={{ post_per_page.next_page_number }}">Older Posts &rarr;</a>
+                    </li>
+                {% endif %}
+
                 </ul>
             </div>
         </div>
