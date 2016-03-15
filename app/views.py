@@ -20,7 +20,7 @@ def category(request, slug):
 	data = {'posts': posts}
 	data['page'] = category 
 
-	return render(request, 'inner.html', data)
+	return render(request, 'result.html', data)
 
 def tag(request, slug):
 	tag = Tag.objects.get(slug=slug)
@@ -28,4 +28,4 @@ def tag(request, slug):
 	data = {'posts': posts}
 	data['page'] = tag
 
-	return render(request, 'inner.html', data)
+	return render(request, 'result.html', data)
