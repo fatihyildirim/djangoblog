@@ -18,6 +18,7 @@ from django.contrib import admin
 from page import views
 
 urlpatterns = [
+    url(r'^contactform$', views.contactform, name = 'contactform'),
 	url(r'^(?P<slug>[\w-]+)$', views.page, name = 'page'),
     url(r'', include('app.urls')),
     url(r'^admin/', admin.site.urls),
